@@ -29,7 +29,7 @@ class AddContact(tk.Toplevel):
 
         self.add_button = ttk.Button( self, text="Add Contact", command=self.validation, bootstyle="success")
 
-         # Pack the widgets
+        # Pack the widgets
         self.name_label.grid(row=0, column=0, padx=10, pady=10, sticky=tk.E)
         self.name_entry.grid(row=0, column=1, padx=10, pady=10, sticky=tk.W)
         self.email_label.grid(row=1, column=0, padx=10, pady=10, sticky=tk.E)
