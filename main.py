@@ -33,6 +33,11 @@ class MainPage(ttk.Window):
         )
         self.button.pack(pady=20)
 
+        self.button = ttk.Button(
+            self, text="Show Contacts", command= showUser.ShowUser, bootstyle="success"
+        )
+        self.button.pack(pady=20)
+
 
 
 
