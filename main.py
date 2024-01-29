@@ -3,7 +3,6 @@ import ttkbootstrap as ttk
 from ttkbootstrap.constants import *
 from ttkbootstrap.dialogs import *
 import sqlite3
-import socket
 import addUser
 import showUser
 import deleteUser
