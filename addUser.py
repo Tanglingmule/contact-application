@@ -4,6 +4,7 @@ from ttkbootstrap.constants import *
 from ttkbootstrap.dialogs import *
 import sqlite3
 import tkinter.messagebox as messagebox
+from emailsuffixes import all_email_suffixes
 
 class AddContact(tk.Toplevel):
 
@@ -42,14 +43,35 @@ class AddContact(tk.Toplevel):
     def validation(self):
         if self.name.get() == "" or self.email.get() == "" or self.number.get() == "":
             messagebox.showerror(title="Error", message="Please fill in all fields")
+        elif "@" not in self.email.get() and "." not in self.email.get():
+            messagebox.showerror(title="Error", message="Please enter a valid email address")
+        
+        # make sure email suffix is in emailsuffixes list
+        elif self.email.get().split("@")[1] not in all_email_suffixes():
+            messagebox.showerror(title="Error", message="Please enter a valid email address")
+        elif len(self.number.get()) != 10:
+            messagebox.showerror(title="Error", message="Please enter a valid 10-digit number")
         else:
             with sqlite3.connect("database.db") as conn:
                 c = conn.cursor()
-                c.execute(
-                    "INSERT INTO users VALUES(:name, :email, :number)",
-                    {
-                        "name": self.name.get(),
-                        "email": self.email.get(),
-                        "number": self.number.get(),
-                    },
-                )
+                c.execute("SELECT * FROM users WHERE email=?", (self.email.get(),))
+                if c.fetchone() is not None:
+                    messagebox.showerror(title="Error", message="Email already exists")
+                    return
+                
+                c.execute("SELECT * FROM users WHERE name=?", (self.name_entry.get(),))
+                if c.fetchone() is not None:
+                    messagebox.showerror(title="Error", message="Name already exists")
+                    return
+                else:
+                    with sqlite3.connect("database.db") as conn:
+                        c = conn.cursor()
+                        c.execute(
+                            "INSERT INTO users VALUES(:name, :email, :number, :image_name)",
+                            {
+                                "name": self.name.get(),
+                                "email": self.email.get(),
+                                "number": self.number.get(),
+                                "image_name": "default.png",
+                            },
+                        )

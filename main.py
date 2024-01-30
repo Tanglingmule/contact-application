@@ -6,13 +6,15 @@ import sqlite3
 import addUser
 import showUser
 import deleteUser
+import addImage
+
 
 
 
 with sqlite3.connect("database.db") as conn:
     c = conn.cursor()
     c.execute(
-        "CREATE TABLE IF NOT EXISTS users (name TEXT, email TEXT, number INTEGER)"
+        "CREATE TABLE IF NOT EXISTS users (name TEXT, email TEXT, number INTEGER, image TEXT)"
     )
     conn.commit()
 
@@ -27,6 +29,8 @@ class MainPage(ttk.Window):
         screen_height = self.winfo_screenheight()
         self.geometry(f"{screen_width}x{screen_height}")
 
+        self.label = ttk.Label(self, text="Welcome to the Contacts App!")
+        self.label.pack(pady=20)
 
         self.button = ttk.Button(
             self, text="Add Contact", command= addUser.AddContact, bootstyle="success"
@@ -43,10 +47,13 @@ class MainPage(ttk.Window):
         )
         self.button.pack(pady=20)
 
+        self.button = ttk.Button(
+            self, text="Add Image", command= addImage.AddImage, bootstyle="success"
+        )
+        self.button.pack(pady=20)
 
 
 
-        self.mainloop()
 
 if __name__ == "__main__":
     app = MainPage()

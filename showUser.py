@@ -21,9 +21,9 @@ class ShowUser(tk.Toplevel):
         self.tree.heading("Name", text="Name")
         self.tree.heading("Email", text="Email")
         self.tree.heading("Number", text="Number")
-        self.tree.column("Name", width=200)
-        self.tree.column("Email", width=200)
-        self.tree.column("Number", width=200)
+        self.tree.column("Name", width=400)
+        self.tree.column("Email", width=400)
+        self.tree.column("Number", width=400)
 
         # Insert records into the Treeview
         for record in records:
