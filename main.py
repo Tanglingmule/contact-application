@@ -8,6 +8,7 @@ import showUser
 import deleteUser
 import addImage
 import assignImage
+from runFiles import *
 
 
 
@@ -29,43 +30,44 @@ class MainPage(ttk.Window):
         screen_width = self.winfo_screenwidth()
         screen_height = self.winfo_screenheight()
         self.geometry(f"{screen_width}x{screen_height}")
+        
 
-        self.label = ttk.Label(self, text="Welcome to the Contacts App!")
+        self.label = ttk.Label(self, text="Welcome to the Contacts App!", font=("Helvetica", 24))
         self.label.pack(pady=20)
-
+       
         self.button = ttk.Button(
-            self, text="Add Contact", command= addUser.AddContact, bootstyle="success"
+            self, text="Add Contact", command= lambda:runAddContactFile(self), bootstyle="success"
         )
         self.button.pack(pady=20)
 
         self.button = ttk.Button(
-            self, text="Show Contacts", command= showUser.ShowUser, bootstyle="success"
+            self, text="Show Contacts", command=lambda:runShowContactsFile(self),bootstyle="success"
         )
-        self.button.pack(pady=20)
+        self.button.pack(pady=20, )
 
         
 
         self.button = ttk.Button(
-            self, text="Add Image", command= addImage.AddImage, bootstyle="success"
+            self, text="Add Image", command= lambda:runAddImageFile(self), bootstyle="success"
         )
         self.button.pack(pady=20)
 
         self.button = ttk.Button(
-            self, text="Assign Image To Contact", command=assignImage.AssignImage, bootstyle="success"
+            self, text="Assign Image To Contact", command= lambda:runAssignImageFile(self), bootstyle="success"
         )
-        self.button.pack(pady=20)
+        self.button.pack ( pady=20, )
 
         self.button = ttk.Button(
-            self, text="Delete Contact", command= deleteUser.deleteUser, bootstyle="danger"
+            self, text="Delete Contact", command= lambda: runDeleteContactFile(self), bootstyle="danger"
         )
-        self.button.pack(pady=20)
+        self.button.pack ( pady=20)
 
         self.button = ttk.Button(
             self, text="Exit", command=self.destroy, bootstyle="danger"
         )
+        self.button.pack ( pady=20, )
 
-
-
+    
 if __name__ == "__main__":
     app = MainPage()
     app.mainloop()

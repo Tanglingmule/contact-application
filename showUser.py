@@ -20,12 +20,13 @@ class ShowUser(tk.Toplevel):
             c.execute("SELECT * FROM users")
             records = c.fetchall()
 
-        self.canvas = tk.Canvas(self, width=800, height=600, bg='black')
+        self.canvas = tk.Canvas(self, width=screen_width, height=screen_width, bg='black')
         self.canvas.pack()
 
         y = 10  # Initial y-coordinate for images and text
 
         # Create headers
+        self.canvas.create_text(10, y, anchor='nw', text="Image", fill='white')
         self.canvas.create_text(70, y, anchor='nw', text="Name", fill='white')
         self.canvas.create_text(200, y, anchor='nw', text="Email", fill='white')
         self.canvas.create_text(330, y, anchor='nw', text="Number", fill='white')
