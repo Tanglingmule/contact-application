@@ -33,23 +33,23 @@ class ShowUser(tk.Toplevel):
 
         y += 30  # Move the y-coordinate for the next image and text
 
+        self.image_references = []  # Store references to PhotoImage objects
+
         for record in records:
             name, email, number, image = record
 
-            # Use try-except block for loading images
             try:
                 profile_picture = Image.open(image)
                 profile_picture = profile_picture.resize((50, 50))
-                profile_picture = ImageTk.PhotoImage(profile_picture)
+                photo_image = ImageTk.PhotoImage(profile_picture)
+                self.image_references.append(photo_image)
 
             except Exception as e:
-                # Handle image loading errors gracefully
                 print(f"Error loading image for {name}: {e}")
-                profile_picture = None
+                self.image_references.append(None)
 
-            if profile_picture:
-                self.canvas.create_image(10, y, anchor='nw', image=profile_picture)
-                self.canvas.image = profile_picture  # Keep a reference to prevent garbage collection
+            if self.image_references[-1]:  # Check if the image was successfully loaded
+                self.canvas.create_image(10, y, anchor='nw', image=self.image_references[-1])
 
             self.canvas.create_text(70, y, anchor='nw', text=name, fill='white')
             self.canvas.create_text(200, y, anchor='nw', text=email, fill='white')

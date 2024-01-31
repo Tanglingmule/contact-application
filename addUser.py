@@ -72,6 +72,7 @@ class AddContact(tk.Toplevel):
                                 "name": self.name.get(),
                                 "email": self.email.get(),
                                 "number": self.number.get(),
-                                "image_name": "default.png",
+                                "image_name": "user_images\\default.png",
                             },
                         )
+                    messagebox.showinfo(title="Success", message="Contact added successfully")

@@ -47,38 +47,29 @@ class SendEmail(tk.Toplevel):
         self.message_entry.grid(row=2, column=1, padx=10, pady=10, sticky=tk.W)
         self.send_button.grid(row=3, column=0, columnspan=2, pady=20)
 
-    def send_email(self):
-        if self.email.get() == "" or self.subject.get() == "" or self.message.get() == "":
-            messagebox.showerror(title="Error", message="Please fill in all fields")
-        else:
-            with sqlite3.connect("database.db") as conn:
-                c = conn.cursor()
-                c.execute("SELECT * FROM users WHERE email=?", (self.email.get(),))
-                if c.fetchone() is None:
-                    messagebox.showerror(title="Error", message="Email not found")
-                    return
+        def send_email(self):
+            if self.email.get() == "" or self.subject.get() == "" or self.message.get() == "":
+                messagebox.showerror(title="Error", message="Please fill in all fields")
+            else:
+                sender = self.sender_email.get()
+                recipient = self.recipient_email.get()
+                subject = self.subject.get()
+                message = self.message.get()
+                
+
+                with sqlite3.connect("database.db") as conn:
+                    c = conn.cursor()
+                    c.execute("SELECT * FROM users WHERE email=?", (recipient,))
+                    records = c.fetchall()
+
+                if len(records) == 0:
+                        messagebox.showerror(title="Error", message="Recipient email not found")
                 else:
-                    with sqlite3.connect("database.db") as conn:
-                        c = conn.cursor()   
-                        c.execute("SELECT * FROM users WHERE email=?", (self.recipient_email.get(),))
-                        if c.fetchone() is None:
-                            messagebox.showerror(title="Error", message="Recipient email not found")
-                            return
-                        else:
-                            # Set up the SMTP server
-                            s = smtplib.SMTP(host='smtp.gmail.com', port=587)
-                            s.starttls()
-                            s.login(self.sender_email.get(), 'your-password')
-
-                            # Create the email
-                            msg = MIMEMultipart()
-                            msg['From'] = self.sender_email.get()
-                            msg['To'] = self.recipient_email.get()
-                            msg['Subject'] = self.subject.get()
-                            msg.attach(MIMEText(self.message.get(), 'plain'))
-
-                            # Send the email
-                            s.send_message(msg)
-                            s.quit()
-
-                            messagebox.showinfo(title="Success", message="Email sent successfully")
+                        message = f"Subject: {subject}\n\n{message}"
+                        try:
+                            smtp_obj = smtplib.SMTP('localhost')
+                            smtp_obj.sendmail(sender, recipient, message)
+                            messagebox.showinfo(title="Success", message="Email sent successfully!")
+                        except:
+                            messagebox.showerror(title="Error", message="Failed to send email")
+            
