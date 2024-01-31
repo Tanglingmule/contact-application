@@ -7,6 +7,7 @@ import addUser
 import showUser
 import deleteUser
 import addImage
+import assignImage
 
 
 
@@ -42,16 +43,26 @@ class MainPage(ttk.Window):
         )
         self.button.pack(pady=20)
 
-        self.button = ttk.Button(
-            self, text="Delete Contact", command= deleteUser.deleteUser, bootstyle="danger"
-        )
-        self.button.pack(pady=20)
+        
 
         self.button = ttk.Button(
             self, text="Add Image", command= addImage.AddImage, bootstyle="success"
         )
         self.button.pack(pady=20)
 
+        self.button = ttk.Button(
+            self, text="Assign Image To Contact", command=assignImage.AssignImage, bootstyle="success"
+        )
+        self.button.pack(pady=20)
+
+        self.button = ttk.Button(
+            self, text="Delete Contact", command= deleteUser.deleteUser, bootstyle="danger"
+        )
+        self.button.pack(pady=20)
+
+        self.button = ttk.Button(
+            self, text="Exit", command=self.destroy, bootstyle="danger"
+        )
 
 
 

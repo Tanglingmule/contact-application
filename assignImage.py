@@ -38,28 +38,33 @@ class AssignImage(tk.Toplevel):
             self.tree.insert("", "end", values=record)
         
         
-        self.assign_button = ttk.Button(self, text="Assign Image", command=self.assign)
+       
 
 
 
 
-        self.image_name_label = ttk.Label(self, text="Image Name:")
+        self.image_name_label = ttk.Label(self, text="Image Path:")
         self.image_name_entry = ttk.Entry(self, textvariable=self.image_name)
 
+
+        self.assign_button = ttk.Button(self, text="Assign Image", command=self.assign, bootstyle="success")
         # Pack the widgets
         self.tree.pack()
-        self.assign_button.pack()
         self.image_name_label.pack()
         self.image_name_entry.pack()
+        self.assign_button.pack()
 
-        def assign(self):
+
+    def assign(self):
             selected = self.tree.focus()
             values = self.tree.item(selected, 'values')
             name = values[0]
             image_name = self.image_name.get()
             with sqlite3.connect("database.db") as conn:
                 c = conn.cursor()
-                c.execute("UPDATE users SET image_name=? WHERE name=?", (image_name, name))
+                c.execute("UPDATE users SET image=? WHERE name=?", (image_name, name))
+            
+            messagebox.showinfo(title="Success", message=f"Image {image_name} assigned successfully to user {name}")
             
 
 
