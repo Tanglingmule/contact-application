@@ -43,10 +43,6 @@ class AssignImage(tk.Toplevel):
         for record in records:
             self.tree.insert("", "end", values=record)
         
-        
-       
-
-
 
 
         self.image_name_label = ttk.Label(self, text="Image Path:")

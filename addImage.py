@@ -62,7 +62,7 @@ class AddImage(tk.Toplevel):
 
         if self.image_entry.get() != "":
             url = self.image.get()
-            urllib.request.urlretrieve(url, f'user_images/{self.image_name.get()}.jpg')
+            urllib.request.urlretrieve(url, f'user_images/{self.image_name.get()}.jpg') # app always crashes after this for some reason, maybe because of the urlretrieve function
             Messagebox.show_info(title="Success", message=f"Image ({self.image_name.get()}) added successfully")
         elif self.image_local_entry.get() != "":
             path = self.image_local_entry.get()

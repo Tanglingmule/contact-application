@@ -63,7 +63,7 @@ class MainPage(tk.Toplevel):
         bottom_frame.pack(side=tk.BOTTOM, pady=20)
 
         # Exit Button
-        exit_button = ttk.Button(self, text="Exit", command=self.destroy, bootstyle="danger")
+        exit_button = ttk.Button(self, text="Exit", command= lambda:exit('Program Terminated'), bootstyle="danger")
         exit_button.pack(side=tk.BOTTOM, pady=20)
 
 if __name__ == "__main__":
