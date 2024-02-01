@@ -5,6 +5,7 @@ from ttkbootstrap.dialogs import *
 import sqlite3
 import tkinter.messagebox as messagebox
 from emailsuffixes import all_email_suffixes
+from runFiles import runMainFile
 
 class AddContact(tk.Toplevel):
 
@@ -29,6 +30,7 @@ class AddContact(tk.Toplevel):
         self.number_entry = ttk.Entry(self, textvariable=self.number)
 
         self.add_button = ttk.Button( self, text="Add Contact", command=self.validation, bootstyle="success")
+        self.back_button = ttk.Button(self, text="Back", command= lambda: runMainFile(self), bootstyle="danger")
 
         # Pack the widgets
         self.name_label.grid(row=0, column=0, padx=10, pady=10, sticky=tk.E)
@@ -38,6 +40,7 @@ class AddContact(tk.Toplevel):
         self.number_label.grid(row=2, column=0, padx=10, pady=10, sticky=tk.E)
         self.number_entry.grid(row=2, column=1, padx=10, pady=10, sticky=tk.W)
         self.add_button.grid(row=3, column=0, columnspan=2, pady=20)
+        self.back_button.grid(row=3, column=2, columnspan=2, pady=20)
 
 
     def validation(self):

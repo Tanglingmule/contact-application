@@ -4,10 +4,18 @@ from ttkbootstrap.constants import *
 from ttkbootstrap.dialogs import *
 from PIL import Image, ImageTk
 import sqlite3
+import main
 
 class ShowUser(tk.Toplevel):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        def runMainFile(self):
+            self.withdraw()
+            main.MainPage()
+
+    
+
         self.title("Show Contacts")
         self.window_theme = ttk.Style(theme='darkly')
         self.resizable(False, False)
@@ -15,13 +23,18 @@ class ShowUser(tk.Toplevel):
         screen_height = self.winfo_screenheight()
         self.geometry(f"{screen_width}x{screen_height}")
 
+        # Create a frame to hold the canvas and the button
+        container_frame = ttk.Frame(self)
+        container_frame.pack(fill=tk.BOTH, expand=True)
+
+        self.canvas = tk.Canvas(container_frame, width=screen_width/2, height=screen_height, bg='black')
+        self.canvas.pack()
+
         with sqlite3.connect("database.db") as conn:
             c = conn.cursor()
             c.execute("SELECT * FROM users")
             records = c.fetchall()
 
-        self.canvas = tk.Canvas(self, width=screen_width, height=screen_width, bg='black')
-        self.canvas.pack()
 
         y = 10  # Initial y-coordinate for images and text
 
@@ -30,6 +43,7 @@ class ShowUser(tk.Toplevel):
         self.canvas.create_text(70, y, anchor='nw', text="Name", fill='white')
         self.canvas.create_text(200, y, anchor='nw', text="Email", fill='white')
         self.canvas.create_text(330, y, anchor='nw', text="Number", fill='white')
+        
 
         y += 30  # Move the y-coordinate for the next image and text
 
@@ -56,3 +70,10 @@ class ShowUser(tk.Toplevel):
             self.canvas.create_text(330, y, anchor='nw', text=number, fill='white')
 
             y += 60  # Move the y-coordinate for the next image and text
+    
+
+        # Create the "Back" button outside the canvas
+        self.back_button = ttk.Button(
+            self, text="Back", command=runMainFile, style="success.TButton"
+        )
+        self.back_button.pack(side=tk.RIGHT, pady=20, padx=10)

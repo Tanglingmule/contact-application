@@ -1,9 +1,11 @@
+import tkinter as tk
 import addUser
 import showUser
 import deleteUser
 import addImage
 import assignImage
 import sendEmail
+import main
 
 def runShowContactsFile(self):
         self.withdraw()
@@ -28,4 +30,14 @@ def runAssignImageFile(self):
 def runSendEmailFile(self):
         self.withdraw()
         sendEmail.SendEmail()
+
+
+
+
+def runMainFile(self):
+    self.withdraw()
+    main.MainPage()
+
     
+
+

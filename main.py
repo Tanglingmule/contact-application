@@ -8,7 +8,7 @@ import showUser
 import deleteUser
 import addImage
 import assignImage
-from runFiles import *
+
 
 
 
@@ -21,9 +21,11 @@ with sqlite3.connect("database.db") as conn:
     conn.commit()
 
 
-class MainPage(ttk.Window):
+
+class MainPage(tk.Toplevel):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        from runFiles import runAddContactFile, runShowContactsFile, runDeleteContactFile, runAddImageFile, runAssignImageFile, runSendEmailFile
         self.title("Main Page")
         self.window_theme=ttk.Style(theme='darkly')
         self.resizable(False, False)
@@ -63,11 +65,15 @@ class MainPage(ttk.Window):
         self.button.pack ( pady=20)
 
         self.button = ttk.Button(
-            self, text="Exit", command=self.destroy, bootstyle="danger"
-        )
+            self, text="Exit", command=self.destroy, bootstyle="danger")
         self.button.pack ( pady=20, )
 
-    
+
 if __name__ == "__main__":
-    app = MainPage()
-    app.mainloop()
+    root = tk.Tk()
+    root.withdraw()  # Hide the self.back_button = ttk.Button(self, text="Back", command=runMainFile, bootstyle="danger")main window
+    app = MainPage()  # Pass the root window to MainPage
+    app.mainloop()  # Start the application's main loop
+
+
+    
