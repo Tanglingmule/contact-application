@@ -60,6 +60,11 @@ class MainPage(tk.Toplevel):
         self.button.pack ( pady=20, )
 
         self.button = ttk.Button(
+            self, text="Send Email to Contact", command= lambda:runSendEmailFile(self), bootstyle="success"
+        )
+        self.button.pack(pady=20)
+
+        self.button = ttk.Button(
             self, text="Delete Contact", command= lambda: runDeleteContactFile(self), bootstyle="danger"
         )
         self.button.pack ( pady=20)

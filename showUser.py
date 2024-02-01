@@ -23,12 +23,16 @@ class ShowUser(tk.Toplevel):
         screen_height = self.winfo_screenheight()
         self.geometry(f"{screen_width}x{screen_height}")
 
-        # Create a frame to hold the canvas and the button
-        container_frame = ttk.Frame(self)
-        container_frame.pack(fill=tk.BOTH, expand=True)
 
-        self.canvas = tk.Canvas(container_frame, width=screen_width/2, height=screen_height, bg='black')
+
+        self.canvas = tk.Canvas(self, width=screen_width / 2, height=screen_height, bg='black')
         self.canvas.pack()
+        # Create the "Back" button outside the canvas
+        self.back_button = ttk.Button(
+            self, text="Back", command=runMainFile, style="success.TButton"
+        )
+        self.back_button.pack( side= 'right')
+
 
         with sqlite3.connect("database.db") as conn:
             c = conn.cursor()
@@ -72,8 +76,3 @@ class ShowUser(tk.Toplevel):
             y += 60  # Move the y-coordinate for the next image and text
     
 
-        # Create the "Back" button outside the canvas
-        self.back_button = ttk.Button(
-            self, text="Back", command=runMainFile, style="success.TButton"
-        )
-        self.back_button.pack(side=tk.RIGHT, pady=20, padx=10)

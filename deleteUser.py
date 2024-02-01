@@ -1,6 +1,7 @@
 import tkinter as tk
 import ttkbootstrap as ttk
 import sqlite3
+import main
 #from runFiles import runMainFile
 
 class deleteUser(tk.Toplevel):
@@ -12,6 +13,10 @@ class deleteUser(tk.Toplevel):
         screen_width = self.winfo_screenwidth()
         screen_height = self.winfo_screenheight()
         self.geometry(f"{screen_width}x{screen_height}")
+
+        def runMainFile(self):
+            self.withdraw()
+            main.MainPage()
 
         with sqlite3.connect("database.db") as conn:
             c = conn.cursor()
@@ -32,11 +37,13 @@ class deleteUser(tk.Toplevel):
 
         self.tree.pack()
 
-        self.delete_button = ttk.Button(self, text="Delete Contact", command=self.delete)
+        self.delete_button = ttk.Button(self, text="Delete Contact", command=self.delete, bootstyle = "success")
+        self.back_button = ttk.Button(self, text = "Back", command=lambda: runMainFile(self), bootstyle = "danger" )
 
         # Pack the widgets
 
         self.delete_button.pack(pady=20)
+        self.back_button.pack(padx=100)
 
     def delete(self):
         selected = self.tree.focus()

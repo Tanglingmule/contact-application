@@ -5,6 +5,7 @@ from ttkbootstrap.dialogs import *
 import tkinter.messagebox as messagebox
 from PIL import Image
 import sqlite3
+import main
 #from runFiles import runMainFile
 
 class AssignImage(tk.Toplevel):
@@ -17,6 +18,10 @@ class AssignImage(tk.Toplevel):
         screen_width = self.winfo_screenwidth()
         screen_height = self.winfo_screenheight()
         self.geometry(f"{screen_width}x{screen_height}")
+
+        def runMainFile(self):
+            self.withdraw()
+            main.MainPage()
 
         self.image_name = tk.StringVar()
 
@@ -49,6 +54,7 @@ class AssignImage(tk.Toplevel):
 
 
         self.assign_button = ttk.Button(self, text="Assign Image", command=self.assign, bootstyle="success")
+        self.back_button = ttk.Button(self, text="Back", command=lambda: runMainFile(self), bootstyle= "success")
         # Pack the widgets
         self.tree.pack()
         self.image_name_label.pack()

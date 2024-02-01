@@ -34,7 +34,7 @@ class SendEmail(tk.Toplevel):
         self.message_label = ttk.Label(self, text="Message:")
         self.message_entry = ttk.Entry(self, textvariable=self.message)
 
-        self.send_button = ttk.Button(self, text="Send Email", command=self.send_email, bootstyle="success")
+        self.send_button = ttk.Button(self, text="Send Email", command= self.send_email(self), bootstyle="success")
 
         # Pack the widgets
         self.sender_email_label.grid(row=0, column=0, padx=10, pady=10, sticky=tk.E)
@@ -72,4 +72,8 @@ class SendEmail(tk.Toplevel):
                             messagebox.showinfo(title="Success", message="Email sent successfully!")
                         except:
                             messagebox.showerror(title="Error", message="Failed to send email")
-            
+
+
+if __name__ == "__main__":
+    app = SendEmail()
+    app.mainloop()
