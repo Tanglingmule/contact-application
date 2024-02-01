@@ -10,11 +10,9 @@ class ShowUser(tk.Toplevel):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        def runMainFile(self):
+        def runMainFile():
             self.withdraw()
             main.MainPage()
-
-    
 
         self.title("Show Contacts")
         self.window_theme = ttk.Style(theme='darkly')
@@ -23,35 +21,30 @@ class ShowUser(tk.Toplevel):
         screen_height = self.winfo_screenheight()
         self.geometry(f"{screen_width}x{screen_height}")
 
-
-
-        self.canvas = tk.Canvas(self, width=screen_width / 2, height=screen_height, bg='black')
-        self.canvas.pack()
-        # Create the "Back" button outside the canvas
+        # Create the "Back" button directly on the Toplevel window
         self.back_button = ttk.Button(
-            self, text="Back", command=runMainFile, style="success.TButton"
+            self, text="Back", command=runMainFile, style="danger.TButton"
         )
-        self.back_button.pack( side= 'right')
+        self.back_button.pack(side="bottom", padx=50, pady=50)
 
+        self.canvas = tk.Canvas(self, width=screen_width, height=screen_height, bg='black')
+        self.canvas.pack()
 
         with sqlite3.connect("database.db") as conn:
             c = conn.cursor()
             c.execute("SELECT * FROM users")
             records = c.fetchall()
 
-
         y = 10  # Initial y-coordinate for images and text
+        self.image_references = []  # Store references to PhotoImage objects
 
         # Create headers
         self.canvas.create_text(10, y, anchor='nw', text="Image", fill='white')
         self.canvas.create_text(70, y, anchor='nw', text="Name", fill='white')
         self.canvas.create_text(200, y, anchor='nw', text="Email", fill='white')
         self.canvas.create_text(330, y, anchor='nw', text="Number", fill='white')
-        
 
         y += 30  # Move the y-coordinate for the next image and text
-
-        self.image_references = []  # Store references to PhotoImage objects
 
         for record in records:
             name, email, number, image = record
@@ -74,5 +67,8 @@ class ShowUser(tk.Toplevel):
             self.canvas.create_text(330, y, anchor='nw', text=number, fill='white')
 
             y += 60  # Move the y-coordinate for the next image and text
-    
 
+# Example usage
+if __name__ == "__main__":
+    app = ShowUser()
+    app.mainloop()

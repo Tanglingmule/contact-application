@@ -50,6 +50,7 @@ class AddImage(tk.Toplevel):
         self.image_name_label.grid(row=1, column=0, padx=10, pady=10, sticky=tk.E)
         self.image_name_entry.grid(row=1, column=1, padx=10, pady=10, sticky=tk.W)
         self.add_button.grid(row=3, column=0, columnspan=2, pady=20)
+        self.back_button.grid(row=3, column=2, columnspan=2, pady=20)
 
     def imageGet(self):
         if self.image_name.get() == "":

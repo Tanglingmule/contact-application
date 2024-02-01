@@ -54,12 +54,13 @@ class AssignImage(tk.Toplevel):
 
 
         self.assign_button = ttk.Button(self, text="Assign Image", command=self.assign, bootstyle="success")
-        self.back_button = ttk.Button(self, text="Back", command=lambda: runMainFile(self), bootstyle= "success")
+        self.back_button = ttk.Button(self, text="Back", command=lambda: runMainFile(self), bootstyle= "danger")
         # Pack the widgets
         self.tree.pack()
         self.image_name_label.pack()
         self.image_name_entry.pack()
         self.assign_button.pack()
+        self.back_button.pack()
 
 
     def assign(self):
