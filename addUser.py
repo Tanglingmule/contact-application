@@ -44,7 +44,7 @@ class AddContact(tk.Toplevel):
 
 
     def validation(self):
-        if self.name.get() == "" or self.email.get() == "" or self.number.get() == "":
+        if self.name.get().strip() == "" or self.email.get().strip() == "" or self.number.get() == "":
             messagebox.showerror(title="Error", message="Please fill in all fields")
         elif "@" not in self.email.get() and "." not in self.email.get():
             messagebox.showerror(title="Error", message="Please enter a valid email address")

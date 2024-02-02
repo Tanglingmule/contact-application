@@ -18,7 +18,7 @@ with sqlite3.connect("database.db") as conn:
 class MainPage(tk.Toplevel):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        from runFiles import runAddContactFile, runShowContactsFile, runDeleteContactFile, runAddImageFile, runAssignImageFile, runSendEmailFile
+        from runFiles import runAddContactFile, runShowContactsFile, runDeleteContactFile, runAddImageFile, runAssignImageFile, runSendEmailFile, runUpdateUserFile
         self.title("Main Page")
         self.window_theme = ttk.Style(theme='darkly')
         self.resizable(False, False)
@@ -54,8 +54,12 @@ class MainPage(tk.Toplevel):
         assign_image_button = ttk.Button(self, text="Assign Image To Contact", command=lambda: runAssignImageFile(self), bootstyle="success")
         assign_image_button.pack(side=tk.RIGHT, ipady=20, ipadx=20, pady=20, padx=20)  # Set internal and external padding
 
+        update_user_button = ttk.Button(self, text="Update User Details", command=lambda: runUpdateUserFile(self), bootstyle="success")
+        update_user_button.pack(side=tk.RIGHT, ipady=20, ipadx=20, pady=20, padx=20)  # Set internal and external padding
+
         delete_contact_button = ttk.Button(self, text="Delete Contact", command=lambda: runDeleteContactFile(self), bootstyle="danger")
-        delete_contact_button.pack(side=tk.RIGHT, ipady=20, ipadx=20, pady=20, padx=20)  # Set internal and external padding
+        delete_contact_button.pack(side=tk.RIGHT, ipady=20, ipadx=20, pady=100, padx=20)  # Set internal and external padding
+
 
 
         # Bottom frame for the Exit Button
