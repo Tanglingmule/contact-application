@@ -50,9 +50,9 @@ class AddContact(tk.Toplevel):
             messagebox.showerror(title="Error", message="Please enter a valid email address")
         
         # make sure email suffix is in emailsuffixes list
-        elif self.email.get().split("@")[1] not in all_email_suffixes():
+        elif self.email.get().split("@")[1] not in all_email_suffixes() or self.email.get().split("@")[0] == "":
             messagebox.showerror(title="Error", message="Please enter a valid email address")
-        elif len(self.number.get()) != 10:
+        elif len(self.number.get()) != 10 or not self.number.get().isdigit():
             messagebox.showerror(title="Error", message="Please enter a valid 10-digit number")
         else:
             with sqlite3.connect("database.db") as conn:

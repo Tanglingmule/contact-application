@@ -57,9 +57,12 @@ class UpdateUser(tk.Toplevel):
 
         def save_changes(old_name, new_name, new_email, new_number):
             # Update the record in the database
-            with sqlite3.connect("database.db") as conn:
-                c = conn.cursor()
-                c.execute("UPDATE users SET name=?, email=?, number=? WHERE name=?", (new_name, new_email, new_number, old_name))
+            if new_name.strip() != "" and new_email.strip() != "" and new_number.strip() != "":
+                with sqlite3.connect("database.db") as conn:
+                    c = conn.cursor()
+                    c.execute("UPDATE users SET name=?, email=?, number=? WHERE name=?", (new_name, new_email, new_number, old_name))
+            else:
+                Messagebox.showinfo("Error", "Please fill in all the fields.")
 
             # Update the Treeview
             selected = self.tree.focus()
